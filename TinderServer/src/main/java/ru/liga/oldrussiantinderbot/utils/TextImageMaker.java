@@ -1,6 +1,7 @@
 package ru.liga.oldrussiantinderbot.utils;
 
 import org.springframework.stereotype.Component;
+import ru.liga.oldrussiantinderbot.model.User;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -8,7 +9,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,12 +28,10 @@ public class TextImageMaker {
     private static Font headerFont;
     private static final String IMAGE_FILE_PATH = "/prerev-background.jpg";
 
-    public static File getImageFile(String text) {
+    public static File getImageFile(User user) {
         final BufferedImage image;
         File file = new File(FINAL_IMAGE_FILE_PATH);
         try {
-//            URL url = TextImageMaker.class.getResource(FINAL_IMAGE_FILE_PATH);
-//            image = ImageIO.read(url);
             InputStream inputStream = TextImageMaker.class.getResourceAsStream(IMAGE_FILE_PATH);
             image = ImageIO.read(inputStream);
             Graphics graphics = image.getGraphics();
@@ -39,7 +40,7 @@ public class TextImageMaker {
             int maxWidth = image.getWidth();
             int maxHeight = image.getHeight();
             headerFont = new Font(FONT_STYLE, Font.BOLD, (int) (bodyFont.getSize() * HEADER_FONT_FACTOR));
-            List<String> lines = getStringLines(text, maxHeight, graphics, maxWidth);
+            List<String> lines = getStringLines(user.getDescription(), maxHeight, graphics, maxWidth);
             graphics.setFont(headerFont);
             int leftIndent = (int) (image.getWidth() * INDENT_SHARE);
             int topIndent = (int) (image.getHeight() * INDENT_SHARE) + (headerFont.getSize() / 2);

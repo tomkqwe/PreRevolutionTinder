@@ -1,10 +1,12 @@
 package ru.liga.oldrussiantinderbot.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.liga.oldrussiantinderbot.service.UserService;
 import ru.liga.oldrussiantinderbot.utils.TextImageMaker;
 
 import java.io.File;
@@ -13,9 +15,12 @@ import java.io.File;
 @RequiredArgsConstructor
 @RequestMapping("api/users/image")
 public class ImageController {
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/")
-    public File getTextImageMaker(@RequestBody String text){
-        return TextImageMaker.getImageFile(text);
+    public File getTextImageMaker(@RequestBody Long userID) {
+
+        return TextImageMaker.getImageFile(userService.getUser(userID));
     }
 }

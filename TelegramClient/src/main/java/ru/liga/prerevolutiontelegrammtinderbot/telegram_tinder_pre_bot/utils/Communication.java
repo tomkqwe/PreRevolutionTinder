@@ -80,8 +80,8 @@ public class Communication {
         return Arrays.asList(forEntity.getBody());
     }
 
-    public File getTextImageMaker(String text){
-        HttpEntity<String> stringHttpEntity = new HttpEntity<>(text);
+    public File getTextImageMaker(Long userID){
+        HttpEntity<Long> stringHttpEntity = new HttpEntity<>(userID);
         return  restTemplate.postForObject(URL+ IMAGE,stringHttpEntity,File.class);
     }
 

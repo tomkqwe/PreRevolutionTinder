@@ -70,12 +70,11 @@ public class ShowProfileFilledHandler implements InputMessageHandler {
                 userProfileData.getPartnerSex()));
         smWithMenu.setReplyMarkup(MainMenuKeyboard.getMainMenuKeyboard());
         userProfileData.setId(userID);
-        //
-//        communication.saveUser(userProfileData);
-        File textImageMaker = communication.getTextImageMaker(userProfileData.getDescription());
+        communication.saveUser(userProfileData);
+        File textImageMaker = communication.getTextImageMaker(userProfileData.getId());
         SendPhoto sendPhoto = new SendPhoto(chatId, new InputFile(textImageMaker));
         sendPhoto.setCaption(userProfileData.getSex()+" "+userProfileData.getName());
-        communication.saveUser(userProfileData);
+        //communication.saveUser(userProfileData);
         sendPhoto.setReplyMarkup(MainMenuKeyboard.getMainMenuKeyboard());
         return sendPhoto;
 
