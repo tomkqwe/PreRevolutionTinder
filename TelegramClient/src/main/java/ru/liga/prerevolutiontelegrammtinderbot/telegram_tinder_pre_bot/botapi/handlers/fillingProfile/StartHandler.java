@@ -18,7 +18,7 @@ import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.Upd
 @Component
 @Data
 public class StartHandler implements InputMessageHandler {
-    public static final String NEED_REGISTRATION = "neobhodimo zaregistrirovatsa";
+    public static final String NEED_REGISTRATION = "Необходимо зарегистрироваться";
     public static final String USE_MAIN_MENU = "Воспользуйтесь главным меню";
     @Autowired
     private DataCache dataCache;

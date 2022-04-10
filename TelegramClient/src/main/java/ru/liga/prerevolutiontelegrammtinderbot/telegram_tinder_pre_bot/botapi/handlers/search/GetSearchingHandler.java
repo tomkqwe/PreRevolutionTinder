@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.BotState;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.InputMessageHandler;
@@ -14,6 +16,7 @@ import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.keyboards
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.Communication;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.UpdateHandler;
 
+import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,7 +42,10 @@ public class GetSearchingHandler implements InputMessageHandler {
 
         User currentUser = communication.getUser(userID);
         List<User> allUsersToSearch = communication.getUsersToSearch(userID);
-            if (allUsersToSearch.isEmpty()){
+        SendPhoto sendPhoto = new SendPhoto();
+        sendPhoto.setChatId(chatID);
+        sendPhoto.setReplyMarkup(SearchKeyboard.getSearchKeyboard());
+        if (allUsersToSearch.isEmpty()){
                 return new SendMessage(chatID, NOBODY_HERE);
             }
         switch (text) {
@@ -64,17 +70,13 @@ public class GetSearchingHandler implements InputMessageHandler {
         }
 
         User user = allUsersToSearch.get(index);
-        String changeThisShitToPicture = user.toString();
-        SendMessage sendMessage = new SendMessage(chatID, changeThisShitToPicture);
-        sendMessage.setReplyMarkup(SearchKeyboard.getSearchKeyboard());
-        return sendMessage;
-    }
-
-    private List<User> filterList(long userID, List<User> allUsers) {
-        return allUsers
-                .stream()
-                .filter(user -> user.getId() != userID)
-                .collect(Collectors.toList());
+//        String changeThisShitToPicture = user.toString();
+//        SendMessage sendMessage = new SendMessage(chatID, changeThisShitToPicture);
+//        sendMessage.setReplyMarkup(SearchKeyboard.getSearchKeyboard());
+        File textImageMaker = communication.getTextImageMaker(user.getId());
+        sendPhoto.setPhoto(new InputFile(textImageMaker));
+        sendPhoto.setCaption(user.getSex()+" "+user.getName());
+        return sendPhoto;
     }
 
     @Override

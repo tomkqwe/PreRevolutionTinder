@@ -74,8 +74,8 @@ public class ShowProfileFilledHandler implements InputMessageHandler {
         File textImageMaker = communication.getTextImageMaker(userProfileData.getId());
         SendPhoto sendPhoto = new SendPhoto(chatId, new InputFile(textImageMaker));
         sendPhoto.setCaption(userProfileData.getSex()+" "+userProfileData.getName());
-        //communication.saveUser(userProfileData);
         sendPhoto.setReplyMarkup(MainMenuKeyboard.getMainMenuKeyboard());
+        //communication.saveUser(userProfileData);
         return sendPhoto;
 
 //        return smWithMenu;

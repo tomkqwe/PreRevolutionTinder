@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.BotState;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.InputMessageHandler;
@@ -15,6 +17,7 @@ import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.keyboards
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.Communication;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.UpdateHandler;
 
+import java.io.File;
 import java.util.List;
 
 @Component
@@ -43,9 +46,14 @@ public class GetFavoritesHandler implements InputMessageHandler {
         List<User> weLike = communication.getWeLike(id);
         List<User> whoLikedMe = communication.getWhoLikedMe(id);
         List<User> sympathy = communication.getSympathy(id);
+
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
         sendMessage.setReplyMarkup(WeLikeKeayboard.getWeLikeKeayboard());
+
+        SendPhoto sendPhoto = new SendPhoto();
+        sendPhoto.setChatId(chatId);
+        sendPhoto.setReplyMarkup(WeLikeKeayboard.getWeLikeKeayboard());
 
         switch (text) {
             case YOURCHOOSE: {
@@ -55,10 +63,13 @@ public class GetFavoritesHandler implements InputMessageHandler {
                     return sendMessage;
                 }
                 User user = weLike.get(index);
-                String resultToOutput = user.toString();
-                sendMessage.setText(resultToOutput);
+//                String resultToOutput = user.toString();
+//                sendMessage.setText(resultToOutput);
+                File textImageMaker = communication.getTextImageMaker(user.getId());
+                sendPhoto.setPhoto(new InputFile(textImageMaker));
+                sendPhoto.setCaption(user.getSex()+" "+user.getName());
                 dataCache.setUsersCurrentBotState(id, BotState.CHECK_WE_LIKE_LIST);
-                return sendMessage;
+                return sendPhoto;
 
             }
             case WHO_LIKED_ME: {
@@ -68,10 +79,13 @@ public class GetFavoritesHandler implements InputMessageHandler {
                     return sendMessage;
                 }
                 User user = whoLikedMe.get(index);
-                String resultToOutput = user.toString();
-                sendMessage.setText(resultToOutput);
+                File textImageMaker = communication.getTextImageMaker(user.getId());
+                sendPhoto.setPhoto(new InputFile(textImageMaker));
+                sendPhoto.setCaption(user.getSex()+" "+user.getName());
+//                String resultToOutput = user.toString();
+//                sendMessage.setText(resultToOutput);
                 dataCache.setUsersCurrentBotState(id, BotState.CHECK_WHO_LIKED_ME_LIST);
-                return sendMessage;
+                return sendPhoto;
 
             }
             case SYMPATHY: {
@@ -81,10 +95,13 @@ public class GetFavoritesHandler implements InputMessageHandler {
                     return sendMessage;
                 }
                 User user = sympathy.get(index);
-                String resultToOutput = user.toString();
-                sendMessage.setText(resultToOutput);
+//                String resultToOutput = user.toString();
+//                sendMessage.setText(resultToOutput);
+                File textImageMaker = communication.getTextImageMaker(user.getId());
+                sendPhoto.setPhoto(new InputFile(textImageMaker));
+                sendPhoto.setCaption(user.getSex()+" "+user.getName());
                 dataCache.setUsersCurrentBotState(id, BotState.CHECK_SYMPATHY_LIST);
-                return sendMessage;
+                return sendPhoto;
             }
             case BACK: {
                 sendMessage.setText(USE_MAIN_MENU);

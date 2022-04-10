@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.BotState;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.InputMessageHandler;
@@ -15,6 +17,8 @@ import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.keyboards
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.keyboards.MainMenuKeyboard;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.Communication;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.UpdateHandler;
+
+import java.io.File;
 
 @Data
 @Component
@@ -35,6 +39,11 @@ public class GetProfileFilledHandler implements InputMessageHandler {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setReplyMarkup(FormKeyboard.getFormKeyboard());
         sendMessage.setChatId(chatID);
+
+        SendPhoto sendPhoto = new SendPhoto();
+        sendPhoto.setChatId(chatID);
+        sendPhoto.setReplyMarkup(FormKeyboard.getFormKeyboard());
+
         User user = communication.getUser(userID);
         if (user==null) {
             dataCache.setUsersCurrentBotState(userID, BotState.ASK_GENDER);
@@ -51,8 +60,11 @@ public class GetProfileFilledHandler implements InputMessageHandler {
             sendMessage.setReplyMarkup(MainMenuKeyboard.getMainMenuKeyboard());
             return sendMessage;
         }
-        sendMessage.setText(user.toString());
-        return sendMessage;
+//        sendMessage.setText(user.toString());
+        File textImageMaker = communication.getTextImageMaker(user.getId());
+        sendPhoto.setPhoto(new InputFile(textImageMaker));
+        sendPhoto.setCaption(user.getSex()+" "+user.getName());
+        return sendPhoto;
     }
 
     @Override

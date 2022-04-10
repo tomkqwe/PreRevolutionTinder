@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.BotState;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.InputMessageHandler;
@@ -14,6 +16,7 @@ import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.keyboards
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.Communication;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.UpdateHandler;
 
+import java.io.File;
 import java.util.List;
 
 @Component
@@ -35,6 +38,10 @@ public class GetSympathyHandler implements InputMessageHandler {
         sendMessage.setChatId(chatId);
         sendMessage.setReplyMarkup(WeLikeKeayboard.getWeLikeKeayboard());
 
+        SendPhoto sendPhoto = new SendPhoto();
+        sendPhoto.setChatId(chatId);
+        sendPhoto.setReplyMarkup(WeLikeKeayboard.getWeLikeKeayboard());
+
 
         switch (text) {
             case WeLikeKeayboard.NEXT: {
@@ -43,9 +50,12 @@ public class GetSympathyHandler implements InputMessageHandler {
                     index = 0;
                 }
                 User user = sympathy.get(index);
-                String resultToOutput = user.toString();
-                sendMessage.setText(resultToOutput);
-                return sendMessage;
+//                String resultToOutput = user.toString();
+//                sendMessage.setText(resultToOutput);
+                File textImageMaker = communication.getTextImageMaker(user.getId());
+                sendPhoto.setPhoto(new InputFile(textImageMaker));
+                sendPhoto.setCaption(user.getSex()+" "+user.getName());
+                return sendPhoto;
             }
             case WeLikeKeayboard.PREVIOUS: {
                 index--;
@@ -53,9 +63,12 @@ public class GetSympathyHandler implements InputMessageHandler {
                     index = sympathy.size() - 1;
                 }
                 User user = sympathy.get(index);
-                String resultToOutput = user.toString();
-                sendMessage.setText(resultToOutput);
-                return sendMessage;
+//                String resultToOutput = user.toString();
+//                sendMessage.setText(resultToOutput);
+                File textImageMaker = communication.getTextImageMaker(user.getId());
+                sendPhoto.setPhoto(new InputFile(textImageMaker));
+                sendPhoto.setCaption(user.getSex()+" "+user.getName());
+                return sendPhoto;
             }
             case WeLikeKeayboard.BACK: {
                 sendMessage.setText(WeLikeHandler.FAVORITES);
