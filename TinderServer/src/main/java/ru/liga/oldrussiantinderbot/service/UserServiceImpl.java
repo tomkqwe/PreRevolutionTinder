@@ -8,6 +8,7 @@ import ru.liga.oldrussiantinderbot.model.User;
 import ru.liga.oldrussiantinderbot.repository.UserRepository;
 import ru.liga.oldrussiantinderbot.utils.Translator;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,7 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
         this.translator = translator;
     }
+
 
     @Override
     public List<User> getAllUsers() {
@@ -118,7 +120,7 @@ public class UserServiceImpl implements UserService {
                 .filter(user1 -> !user1.getId().equals(user.getId()))
                 .filter(user1 -> (user1.getPartnerSex().equals(SexType.ALL) ||
                         user1.getPartnerSex().equals(user.getSex())) &&
-                        (user.getPartnerSex().equals(SexType.ALL)||
+                        (user.getPartnerSex().equals(SexType.ALL) ||
                                 user.getPartnerSex().equals(user1.getSex())))
                 .sorted(Comparator.comparing(User::getName))
                 .collect(Collectors.toList());

@@ -12,8 +12,7 @@ import java.util.List;
 public class Translator {
 
     private static final List<Character> VOWELS = Arrays.asList('а', 'о', 'э', 'е',
-            'и', 'ы', 'у', 'ё', 'ю', 'я', 'й', 'ъ', 'ь', 'А', 'О', 'Э', 'Е',
-            'И', 'Ы', 'У', 'Ё', 'Ю', 'Я', 'Й', 'Ъ', 'Ь');
+            'и', 'ы', 'у', 'ё', 'ю', 'я', 'й');
     public static final String TEXT_DELIMITER = "[ \\n]";
 
     public String translateInOldLanguage(String text) {

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class WeLikeKeayboard {
 
     public static final String NEXT = "Следующий▶️";
-    public static final String PREVIOUS = "Предидущий◀️";
+    public static final String PREVIOUS = "Предыдущий◀️";
     public static final String BACK = "Назад";
 
     public static ReplyKeyboard getWeLikeKeayboard(){
