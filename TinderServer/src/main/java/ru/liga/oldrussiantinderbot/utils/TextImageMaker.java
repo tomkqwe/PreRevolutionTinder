@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,21 +16,23 @@ import java.util.stream.Collectors;
 
 public class TextImageMaker {
     private static final String FONT_STYLE = "Old Standard TT";
-    private static final int DEFAULT_TEXT_SIZE = 50;
+    private static final int DEFAULT_TEXT_SIZE = 40;
     private static final double HEADER_FONT_FACTOR = 1.5;
     private static final double INDENT_SHARE = 0.1;
     private static final String IMAGE_FILE_EXTENSION = "png";
-    private static final String FINAL_IMAGE_FILE_PATH = "prerev-background.jpg";
+    private static final String FINAL_IMAGE_FILE_PATH = "ready.png";
     private static Font bodyFont;
     private static Font headerFont;
-    private static final String IMAGE_FILE_PATH = "ready.png";
+    private static final String IMAGE_FILE_PATH = "/prerev-background.jpg";
 
     public static File getImageFile(String text) {
         final BufferedImage image;
-        File file = new File(IMAGE_FILE_PATH);
+        File file = new File(FINAL_IMAGE_FILE_PATH);
         try {
-            URL url = TextImageMaker.class.getResource(FINAL_IMAGE_FILE_PATH);
-            image = ImageIO.read(url);
+//            URL url = TextImageMaker.class.getResource(FINAL_IMAGE_FILE_PATH);
+//            image = ImageIO.read(url);
+            InputStream inputStream = TextImageMaker.class.getResourceAsStream(IMAGE_FILE_PATH);
+            image = ImageIO.read(inputStream);
             Graphics graphics = image.getGraphics();
             graphics.setColor(Color.BLACK);
             bodyFont = new Font(FONT_STYLE, Font.ITALIC, DEFAULT_TEXT_SIZE);
@@ -66,7 +69,7 @@ public class TextImageMaker {
             fontMetrics = graphics.getFontMetrics(bodyFont);
         }
 //        if ((lines.size() + 1) * fontMetrics.getHeight() > maxHeight) {
-//            bodyFont.deriveFont(bodyFont.getStyle(), (int) (bodyFont.getSize() / 1.5));
+//            bodyFont.deriveFont(bodyFont.getStyle(), (int) (bodyFont.getSize() / 2));
 //            return getStringLines(text, maxHeight, graphics, maxLineWidth);
 //        } else {
 //        }
