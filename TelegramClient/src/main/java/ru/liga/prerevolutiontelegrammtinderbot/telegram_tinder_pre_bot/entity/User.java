@@ -19,10 +19,10 @@ public class User {
     private Long id;
     private String name;
     //потом заменим на энамы, яхз как их в пост запросе передать
-    private String sex;
+    private SexType sex;
     private Integer age;
     private String description;
-    private String partnerSex;
+    private SexType partnerSex;
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

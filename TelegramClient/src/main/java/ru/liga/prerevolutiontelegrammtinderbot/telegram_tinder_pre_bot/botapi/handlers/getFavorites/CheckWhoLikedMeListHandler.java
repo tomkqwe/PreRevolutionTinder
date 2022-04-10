@@ -64,7 +64,7 @@ public class CheckWhoLikedMeListHandler implements InputMessageHandler {
                 User user = whoLikedMe.get(index);
                 File textImageMaker = communication.getTextImageMaker(user.getId());
                 sendPhoto.setPhoto(new InputFile(textImageMaker));
-                sendPhoto.setCaption(user.getSex()+" "+user.getName());
+                sendPhoto.setCaption(user.getSex().getName()+" "+user.getName());
 //                String resultToOutput = user.toString();
 //                sendPhoto.setText(resultToOutput);
                 return sendPhoto;
@@ -77,7 +77,7 @@ public class CheckWhoLikedMeListHandler implements InputMessageHandler {
                 User user = whoLikedMe.get(index);
                 File textImageMaker = communication.getTextImageMaker(user.getId());
                 sendPhoto.setPhoto(new InputFile(textImageMaker));
-                sendPhoto.setCaption(user.getSex()+" "+user.getName());
+                sendPhoto.setCaption(user.getSex().getName()+" "+user.getName());
 //                String resultToOutput = user.toString();
 //                sendPhoto.setText(resultToOutput);
                 return sendPhoto;

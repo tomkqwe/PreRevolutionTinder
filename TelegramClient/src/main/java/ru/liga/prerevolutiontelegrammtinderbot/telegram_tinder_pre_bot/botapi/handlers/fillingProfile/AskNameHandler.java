@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.BotState;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.InputMessageHandler;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.cache.DataCache;
+import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.entity.SexType;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.entity.User;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.keyboards.InlineKeyBoardSelector;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.UpdateHandler;
@@ -36,7 +37,7 @@ public class AskNameHandler implements InputMessageHandler {
         if (update.hasCallbackQuery()) {
             sendMessage = new SendMessage(chatId, WHAT_IS_YOUR_NAME);
             String data = update.getCallbackQuery().getData();
-            userProfileData.setSex(data);
+            userProfileData.setSex(SexType.getSexType(data));
             dataCache.setUsersCurrentBotState(userID, BotState.ASK_AGE);
             dataCache.saveUserProfileData(userID,dataCache.getUserProfileData(userID));
         } else {

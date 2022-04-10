@@ -67,7 +67,7 @@ public class GetFavoritesHandler implements InputMessageHandler {
 //                sendMessage.setText(resultToOutput);
                 File textImageMaker = communication.getTextImageMaker(user.getId());
                 sendPhoto.setPhoto(new InputFile(textImageMaker));
-                sendPhoto.setCaption(user.getSex()+" "+user.getName());
+                sendPhoto.setCaption(user.getSex().getName()+" "+user.getName());
                 dataCache.setUsersCurrentBotState(id, BotState.CHECK_WE_LIKE_LIST);
                 return sendPhoto;
 
@@ -81,7 +81,7 @@ public class GetFavoritesHandler implements InputMessageHandler {
                 User user = whoLikedMe.get(index);
                 File textImageMaker = communication.getTextImageMaker(user.getId());
                 sendPhoto.setPhoto(new InputFile(textImageMaker));
-                sendPhoto.setCaption(user.getSex()+" "+user.getName());
+                sendPhoto.setCaption(user.getSex().getName()+" "+user.getName());
 //                String resultToOutput = user.toString();
 //                sendMessage.setText(resultToOutput);
                 dataCache.setUsersCurrentBotState(id, BotState.CHECK_WHO_LIKED_ME_LIST);
@@ -99,7 +99,7 @@ public class GetFavoritesHandler implements InputMessageHandler {
 //                sendMessage.setText(resultToOutput);
                 File textImageMaker = communication.getTextImageMaker(user.getId());
                 sendPhoto.setPhoto(new InputFile(textImageMaker));
-                sendPhoto.setCaption(user.getSex()+" "+user.getName());
+                sendPhoto.setCaption(user.getSex().getName()+" "+user.getName());
                 dataCache.setUsersCurrentBotState(id, BotState.CHECK_SYMPATHY_LIST);
                 return sendPhoto;
             }

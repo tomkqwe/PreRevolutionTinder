@@ -63,7 +63,7 @@ public class GetProfileFilledHandler implements InputMessageHandler {
 //        sendMessage.setText(user.toString());
         File textImageMaker = communication.getTextImageMaker(user.getId());
         sendPhoto.setPhoto(new InputFile(textImageMaker));
-        sendPhoto.setCaption(user.getSex()+" "+user.getName());
+        sendPhoto.setCaption(user.getSex().getName()+" "+user.getName());
         return sendPhoto;
     }
 

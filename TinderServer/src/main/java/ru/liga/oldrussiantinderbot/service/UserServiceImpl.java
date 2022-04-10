@@ -3,6 +3,7 @@ package ru.liga.oldrussiantinderbot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.liga.oldrussiantinderbot.model.SexType;
 import ru.liga.oldrussiantinderbot.model.User;
 import ru.liga.oldrussiantinderbot.repository.UserRepository;
 import ru.liga.oldrussiantinderbot.utils.Translator;
@@ -51,7 +52,6 @@ public class UserServiceImpl implements UserService {
     public User updateUser(User user) {
         user.setName(translator.translateInOldLanguage(user.getName()));
         user.setDescription(translator.translateInOldLanguage(user.getDescription()));
-        user.setSex(translator.translateInOldLanguage(user.getSex()));
         saveUser(user);
         return user;
     }
@@ -116,9 +116,9 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .filter(user1 -> !weLike.contains(user1))
                 .filter(user1 -> !user1.getId().equals(user.getId()))
-                .filter(user1 -> (user1.getPartnerSex().equals("Все") ||
+                .filter(user1 -> (user1.getPartnerSex().equals(SexType.ALL) ||
                         user1.getPartnerSex().equals(user.getSex())) &&
-                        (user.getPartnerSex().equals("Все")||
+                        (user.getPartnerSex().equals(SexType.ALL)||
                                 user.getPartnerSex().equals(user1.getSex())))
                 .sorted(Comparator.comparing(User::getName))
                 .collect(Collectors.toList());

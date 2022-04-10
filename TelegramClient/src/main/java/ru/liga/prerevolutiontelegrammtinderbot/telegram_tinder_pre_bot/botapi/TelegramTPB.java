@@ -66,7 +66,6 @@ public class TelegramTPB extends TelegramWebhookBot {
 ////            long chat_id = update.getMessage().getChatId();
 ////            String s = update.getMessage().getChatId().toString();
 ////            try {
-//////                returnUserById(update,chat_id);
 ////                execute(new SendMessage(s, "Hi" + update.getMessage().getText()));
 ////            } catch (TelegramApiException e) {
 ////                    e.printStackTrace();
@@ -75,27 +74,8 @@ public class TelegramTPB extends TelegramWebhookBot {
 ////            }
 //
 //
-//        return telegramFacade.handleUpdate(update);
 ////        return null;
 //    }
 
 
-//    private void returnUserById(Update update, Long chatId) throws TelegramApiException {
-//        String s = update.getMessage().getText();
-//        execute(new SendMessage(chatId.toString(), getAllUsers().toString()));
-//    }
-////
-//    private String getAllUsers() {
-//        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MyConfig.class);
-//        Communication communication = context.getBean("communication", Communication.class);
-//        List<User> allUsers = communication.getAllUsers();
-//        return allUsers.stream().map(User::toString).collect(Collectors.joining("\n"));
-//    }
-//
-//
-//    private void deleteNullUser() {
-//        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MyConfig.class);
-//        Communication communication = context.getBean("communication", Communication.class);
-//        communication.deleteUser(11);
-//    }
 }

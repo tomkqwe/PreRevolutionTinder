@@ -9,7 +9,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import org.yaml.snakeyaml.events.Event;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.entity.User;
 
 import java.io.File;
@@ -51,10 +50,15 @@ public class Communication {
         restTemplate.put(URL, user);
         log.info("user with ID " + id + " was updated");
     }
-    public List<User> getUsersToSearch(Long userID){
-        ResponseEntity<User[]> forEntity = restTemplate.getForEntity(URL + "filtredListToSearch/" + userID, User[].class);
-        log.info("getUsersToSearch");
-        return Arrays.asList(forEntity.getBody());
+
+    public List<User> getUsersToSearch(Long userID) {
+        try {
+            ResponseEntity<User[]> forEntity = restTemplate.getForEntity(URL + "filtredListToSearch/" + userID, User[].class);
+            log.info("getUsersToSearch");
+            return Arrays.asList(forEntity.getBody());
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public void likeRequest(long current, long target) {
@@ -74,15 +78,16 @@ public class Communication {
         log.info("getWhoLikedMe");
         return Arrays.asList(forEntity.getBody());
     }
-    public List<User> getSympathy(Long userID){
+
+    public List<User> getSympathy(Long userID) {
         ResponseEntity<User[]> forEntity = restTemplate.getForEntity(URL + SYMPATHY + userID, User[].class);
         log.info("getSympathy");
         return Arrays.asList(forEntity.getBody());
     }
 
-    public File getTextImageMaker(Long userID){
+    public File getTextImageMaker(Long userID) {
         HttpEntity<Long> stringHttpEntity = new HttpEntity<>(userID);
-        return  restTemplate.postForObject(URL+ IMAGE,stringHttpEntity,File.class);
+        return restTemplate.postForObject(URL + IMAGE, stringHttpEntity, File.class);
     }
 
 

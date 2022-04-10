@@ -1,6 +1,5 @@
 package ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.handlers.fillingProfile;
 
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
@@ -12,6 +11,7 @@ import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.Bo
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.InputMessageHandler;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.TelegramTPB;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.cache.DataCache;
+import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.entity.SexType;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.entity.User;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.keyboards.InlineKeyBoardSelector;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.keyboards.MainMenuKeyboard;
@@ -32,7 +32,7 @@ public class ShowProfileFilledHandler implements InputMessageHandler {
     @Autowired
     private Communication communication;
 
-   private TelegramTPB telegramTPB;
+    private TelegramTPB telegramTPB;
 
 
     public ShowProfileFilledHandler(DataCache dataCache) {
@@ -54,7 +54,7 @@ public class ShowProfileFilledHandler implements InputMessageHandler {
         SendMessage sendMessage = null;
         if (update.hasCallbackQuery()) {
             String data = update.getCallbackQuery().getData();
-            userProfileData.setPartnerSex(data);
+            userProfileData.setPartnerSex(SexType.getSexType(data));
             sendMessage = new SendMessage(chatId, ANKET_COMPLITE);
             dataCache.saveUserProfileData(userID, dataCache.getUserProfileData(userID));
 
@@ -66,14 +66,14 @@ public class ShowProfileFilledHandler implements InputMessageHandler {
         }
 
         SendMessage smWithMenu = new SendMessage(chatId, String.format("%s%n -------------------%nИмя: %s%nВозраст: %d%n Пол: %s%nОписание: %s%n" +
-                        "Кого ищем: %s%n", "Данные по вашей анкете", userProfileData.getName(), userProfileData.getAge(), userProfileData.getSex(), userProfileData.getDescription(),
+                        "Кого ищем: %s%n", "Данные по вашей анкете", userProfileData.getName(), userProfileData.getAge(), userProfileData.getSex().getName(), userProfileData.getDescription(),
                 userProfileData.getPartnerSex()));
         smWithMenu.setReplyMarkup(MainMenuKeyboard.getMainMenuKeyboard());
         userProfileData.setId(userID);
         communication.saveUser(userProfileData);
         File textImageMaker = communication.getTextImageMaker(userProfileData.getId());
         SendPhoto sendPhoto = new SendPhoto(chatId, new InputFile(textImageMaker));
-        sendPhoto.setCaption(userProfileData.getSex()+" "+userProfileData.getName());
+        sendPhoto.setCaption(userProfileData.getSex().getName() + " " + userProfileData.getName());
         sendPhoto.setReplyMarkup(MainMenuKeyboard.getMainMenuKeyboard());
         //communication.saveUser(userProfileData);
         return sendPhoto;
