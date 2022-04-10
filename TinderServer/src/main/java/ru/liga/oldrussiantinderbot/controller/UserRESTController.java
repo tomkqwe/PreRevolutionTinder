@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.liga.oldrussiantinderbot.model.User;
 import ru.liga.oldrussiantinderbot.service.UserService;
+import ru.liga.oldrussiantinderbot.utils.Translator;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ import java.util.List;
 public class UserRESTController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private Translator translator;
 
 
     @GetMapping("/users")
@@ -26,13 +29,17 @@ public class UserRESTController {
 
     @PostMapping("/users")
     public User addNewUser(@RequestBody User user) {
+        user.setDescription(translator.translateInOldLanguage(user.getDescription()));
+        user.setName(translator.translateInOldLanguage(user.getName()));
         userService.saveUser(user);
         return user;
     }
 
     @PutMapping("/users")
     public User updateUser(@RequestBody User user) {
-      userService.updateUser(user);
+        user.setDescription(translator.translateInOldLanguage(user.getDescription()));
+        user.setName(translator.translateInOldLanguage(user.getName()));
+        userService.updateUser(user);
         return user;
     }
 
@@ -45,7 +52,7 @@ public class UserRESTController {
 
     @PostMapping("/users/like/{ids}")
     public void likeUser(@PathVariable String ids) {
-      userService.putFromCurrentToTargetLike(ids);
+        userService.putFromCurrentToTargetLike(ids);
     }
 
     @GetMapping("/users/weLike/{id}")
@@ -60,12 +67,12 @@ public class UserRESTController {
 
     @GetMapping("users/sympathy/{id}")
     public List<User> exportSympathy(@PathVariable Long id) {
-     return userService.exportSympathyList(id);
+        return userService.exportSympathyList(id);
     }
 
     @GetMapping("/users/filtredListToSearch/{id}")
     public List<User> getAllUsersToSearch(@PathVariable Long id) {
-     return  userService.getAllUsersToSearchList(id);
+        return userService.getAllUsersToSearchList(id);
     }
 
 
