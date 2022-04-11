@@ -3,6 +3,7 @@ package ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -19,13 +20,20 @@ import java.util.List;
 @Slf4j
 @Component
 public class Communication {
-    public static final String LIKE = "like/";
-    public static final String WE_LIKE = "weLike/";
-    public static final String DELIMITER = "_";
-    public static final String WHO_LIKED_ME = "whoLikedMe/";
-    public static final String SYMPATHY = "sympathy/";
-    public static final String IMAGE = "image/";
-    private final String URL = "http://localhost:8888/api/users/";
+    @Value("${api.like}")
+    public String LIKE;
+    @Value("${api.welike}")
+    public String WE_LIKE;
+    @Value("${api.delimetr}")
+    public String DELIMITER;
+    @Value("${api.wholikedme}")
+    public String WHO_LIKED_ME;
+    @Value("${api.sympathy}")
+    public String SYMPATHY;
+    @Value("${api.image}")
+    public String IMAGE;
+    @Value("${api.startUrl}")
+    private String URL;
     @Autowired
     private RestTemplate restTemplate;
 

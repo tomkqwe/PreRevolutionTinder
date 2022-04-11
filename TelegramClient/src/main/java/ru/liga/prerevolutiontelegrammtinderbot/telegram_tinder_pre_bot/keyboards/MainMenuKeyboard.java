@@ -28,12 +28,12 @@ public class MainMenuKeyboard {
         KeyboardRow row3 = new KeyboardRow();
 
 
-        row1.add(new KeyboardButton(START));
+//        row1.add(new KeyboardButton(START));
         row2.add(new KeyboardButton(SEARCH));
         row2.add(new KeyboardButton(FORM));
         row3.add(new KeyboardButton(FAVORITES));
 
-        keyboard.add(row1);
+//        keyboard.add(row1);
         keyboard.add(row2);
         keyboard.add(row3);
 
