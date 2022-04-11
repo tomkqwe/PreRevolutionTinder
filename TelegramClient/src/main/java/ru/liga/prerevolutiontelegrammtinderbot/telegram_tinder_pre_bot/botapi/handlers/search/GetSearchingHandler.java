@@ -9,16 +9,14 @@ import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.BotState;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.InputMessageHandler;
-import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.cache.DataCache;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.entity.User;
-import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.keyboards.SearchKeyboard;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.keyboards.MainMenuKeyboard;
+import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.keyboards.SearchKeyboard;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.Communication;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.UpdateHandler;
 
 import java.io.File;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class GetSearchingHandler implements InputMessageHandler {
@@ -27,8 +25,6 @@ public class GetSearchingHandler implements InputMessageHandler {
     public static final String BACK = "Назад";
     public static final String USE_MAIN_MENU = "Воспользуйтесь главным меню";
     public static final String NOBODY_HERE = "Тут никого нет\uD83D\uDE2D";
-    @Autowired
-    private DataCache dataCache;
     @Autowired
     private Communication communication;
     private int index = 0;
@@ -45,9 +41,9 @@ public class GetSearchingHandler implements InputMessageHandler {
         SendPhoto sendPhoto = new SendPhoto();
         sendPhoto.setChatId(chatID);
         sendPhoto.setReplyMarkup(SearchKeyboard.getSearchKeyboard());
-        if (allUsersToSearch.isEmpty()){
-                return new SendMessage(chatID, NOBODY_HERE);
-            }
+        if (allUsersToSearch.isEmpty()) {
+            return new SendMessage(chatID, NOBODY_HERE);
+        }
         switch (text) {
             case LIKE:
                 User target = allUsersToSearch.get(index);
@@ -70,12 +66,9 @@ public class GetSearchingHandler implements InputMessageHandler {
         }
 
         User user = allUsersToSearch.get(index);
-//        String changeThisShitToPicture = user.toString();
-//        SendMessage sendMessage = new SendMessage(chatID, changeThisShitToPicture);
-//        sendMessage.setReplyMarkup(SearchKeyboard.getSearchKeyboard());
         File textImageMaker = communication.getTextImageMaker(user.getId());
         sendPhoto.setPhoto(new InputFile(textImageMaker));
-        sendPhoto.setCaption(user.getSex().getName()+" "+user.getName());
+        sendPhoto.setCaption(user.getSex().getName() + " " + user.getName());
         return sendPhoto;
     }
 

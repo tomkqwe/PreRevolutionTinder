@@ -12,14 +12,12 @@ import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.In
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.cache.DataCache;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.entity.User;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.keyboards.FavoritesKeyboard;
-import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.keyboards.MainMenuKeyboard;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.keyboards.WeLikeKeayboard;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.Communication;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.UpdateHandler;
 
 import java.io.File;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class CheckWhoLikedMeListHandler implements InputMessageHandler {
@@ -36,13 +34,7 @@ public class CheckWhoLikedMeListHandler implements InputMessageHandler {
         String chatId = UpdateHandler.getChatId(update);
         String text = UpdateHandler.getText(update);
         long id = UpdateHandler.getId(update);
-        List<User> whoLikedMe = communication.getWhoLikedMe(id)
-                .stream()
-                .distinct()
-                .collect(Collectors.toList());
-//        SendMessage sendMessage = new SendMessage();
-//        sendMessage.setChatId(chatId);
-//        sendMessage.setReplyMarkup(WeLikeKeayboard.getWeLikeKeayboard());
+        List<User> whoLikedMe = communication.getWhoLikedMe(id);
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
 
@@ -64,9 +56,7 @@ public class CheckWhoLikedMeListHandler implements InputMessageHandler {
                 User user = whoLikedMe.get(index);
                 File textImageMaker = communication.getTextImageMaker(user.getId());
                 sendPhoto.setPhoto(new InputFile(textImageMaker));
-                sendPhoto.setCaption(user.getSex().getName()+" "+user.getName());
-//                String resultToOutput = user.toString();
-//                sendPhoto.setText(resultToOutput);
+                sendPhoto.setCaption(user.getSex().getName() + " " + user.getName());
                 return sendPhoto;
             }
             case WeLikeKeayboard.PREVIOUS: {
@@ -77,9 +67,7 @@ public class CheckWhoLikedMeListHandler implements InputMessageHandler {
                 User user = whoLikedMe.get(index);
                 File textImageMaker = communication.getTextImageMaker(user.getId());
                 sendPhoto.setPhoto(new InputFile(textImageMaker));
-                sendPhoto.setCaption(user.getSex().getName()+" "+user.getName());
-//                String resultToOutput = user.toString();
-//                sendPhoto.setText(resultToOutput);
+                sendPhoto.setCaption(user.getSex().getName() + " " + user.getName());
                 return sendPhoto;
             }
             case WeLikeKeayboard.BACK:

@@ -11,9 +11,9 @@ import java.util.List;
 @Component
 public class Translator {
 
+    public static final String TEXT_DELIMITER = "[ \\n]";
     private static final List<Character> VOWELS = Arrays.asList('а', 'о', 'э', 'е',
             'и', 'ы', 'у', 'ё', 'ю', 'я', 'й');
-    public static final String TEXT_DELIMITER = "[ \\n]";
 
     public String translateInOldLanguage(String text) {
         String[] textArray = text.split(TEXT_DELIMITER);
@@ -74,5 +74,4 @@ public class Translator {
         }
         return string;
     }
-
 }

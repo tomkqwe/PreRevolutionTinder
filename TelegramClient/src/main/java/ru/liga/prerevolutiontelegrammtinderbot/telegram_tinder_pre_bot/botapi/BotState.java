@@ -1,6 +1,7 @@
 package ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi;
 
-/**Возможные состояния бота
+/**
+ * Возможные состояния бота
  */
 
 public enum BotState {

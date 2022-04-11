@@ -6,21 +6,22 @@ import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.entity.Us
 
 import java.util.HashMap;
 import java.util.Map;
+
 @Component
 public class DataCacheImpl implements DataCache {
 
-    private Map<Long, BotState> usersBotStates = new HashMap<>();
-    private Map<Long, User> usersProfileData = new HashMap<>();
+    private final Map<Long, BotState> usersBotStates = new HashMap<>();
+    private final Map<Long, User> usersProfileData = new HashMap<>();
 
     @Override
     public void setUsersCurrentBotState(long userId, BotState botState) {
-        usersBotStates.put(userId,botState);
+        usersBotStates.put(userId, botState);
     }
 
     @Override
     public BotState getUsersCurrentBotState(long userId) {
         BotState botState = usersBotStates.get(userId);
-        if (botState == null){
+        if (botState == null) {
             botState = BotState.START_STATE;
         }
         return botState;
@@ -29,7 +30,7 @@ public class DataCacheImpl implements DataCache {
     @Override
     public User getUserProfileData(long userId) {
         User user = usersProfileData.get(userId);
-        if (user == null){
+        if (user == null) {
             user = new User();
         }
         return user;
@@ -37,6 +38,6 @@ public class DataCacheImpl implements DataCache {
 
     @Override
     public void saveUserProfileData(long userId, User userProfileData) {
-        usersProfileData.put(userId,userProfileData);
+        usersProfileData.put(userId, userProfileData);
     }
 }

@@ -8,7 +8,6 @@ import ru.liga.oldrussiantinderbot.model.User;
 import ru.liga.oldrussiantinderbot.repository.UserRepository;
 import ru.liga.oldrussiantinderbot.utils.Translator;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.stream.Collectors;
 

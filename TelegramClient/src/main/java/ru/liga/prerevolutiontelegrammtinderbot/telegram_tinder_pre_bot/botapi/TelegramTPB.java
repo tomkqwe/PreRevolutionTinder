@@ -9,7 +9,6 @@ import org.telegram.telegrambots.bots.TelegramWebhookBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.PropertiesUtil;
@@ -22,7 +21,6 @@ public class TelegramTPB extends TelegramWebhookBot {
     private final String botUserName = "bot.name";
     private final String botToken = "bot.token";
     @Autowired
-//    private TelegramFacade telegramFacade;
     private MyTelegramFacade telegramFacade;
 
     public TelegramTPB(MyTelegramFacade telegramFacade) {
@@ -44,38 +42,20 @@ public class TelegramTPB extends TelegramWebhookBot {
 
         PartialBotApiMethod<?> botApiMethod = telegramFacade.handleUpdate(update);
 
-        if (botApiMethod instanceof SendPhoto){
+        if (botApiMethod instanceof SendPhoto) {
             try {
-               execute((SendPhoto) botApiMethod);
-               return null;
+                execute((SendPhoto) botApiMethod);
+                return null;
             } catch (TelegramApiException e) {
                 log.info(e.getMessage());
             }
         }
-        return (BotApiMethod<?>)botApiMethod;
+        return (BotApiMethod<?>) botApiMethod;
     }
 
     @Override
     public String getBotPath() {
         return PropertiesUtil.get(webHookPath);
     }
-
-//    @Override
-//    public <?> onWebhookUpdateReceived(Update update) {
-////                if (update.getMessage() != null && update.getMessage().hasText()) {
-////            long chat_id = update.getMessage().getChatId();
-////            String s = update.getMessage().getChatId().toString();
-////            try {
-////                execute(new SendMessage(s, "Hi" + update.getMessage().getText()));
-////            } catch (TelegramApiException e) {
-////                    e.printStackTrace();
-////                }
-////
-////            }
-//
-//
-////        return null;
-//    }
-
 
 }

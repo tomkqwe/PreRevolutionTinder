@@ -50,11 +50,9 @@ public class GetSympathyHandler implements InputMessageHandler {
                     index = 0;
                 }
                 User user = sympathy.get(index);
-//                String resultToOutput = user.toString();
-//                sendMessage.setText(resultToOutput);
                 File textImageMaker = communication.getTextImageMaker(user.getId());
                 sendPhoto.setPhoto(new InputFile(textImageMaker));
-                sendPhoto.setCaption(user.getSex().getName()+" "+user.getName());
+                sendPhoto.setCaption(user.getSex().getName() + " " + user.getName());
                 return sendPhoto;
             }
             case WeLikeKeayboard.PREVIOUS: {
@@ -63,11 +61,9 @@ public class GetSympathyHandler implements InputMessageHandler {
                     index = sympathy.size() - 1;
                 }
                 User user = sympathy.get(index);
-//                String resultToOutput = user.toString();
-//                sendMessage.setText(resultToOutput);
                 File textImageMaker = communication.getTextImageMaker(user.getId());
                 sendPhoto.setPhoto(new InputFile(textImageMaker));
-                sendPhoto.setCaption(user.getSex().getName()+" "+user.getName());
+                sendPhoto.setCaption(user.getSex().getName() + " " + user.getName());
                 return sendPhoto;
             }
             case WeLikeKeayboard.BACK: {

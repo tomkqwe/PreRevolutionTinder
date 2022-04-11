@@ -1,6 +1,5 @@
 package ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.keyboards;
 
-import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
@@ -15,7 +14,7 @@ public class FavoritesKeyboard {
     public static final String SIMPATIYA = "Взаимный выбор";
     public static final String BACK = "Назад";
 
-    public static ReplyKeyboard  getFavoritesKeyboard(){
+    public static ReplyKeyboard getFavoritesKeyboard() {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
 
         replyKeyboardMarkup.setSelective(true);

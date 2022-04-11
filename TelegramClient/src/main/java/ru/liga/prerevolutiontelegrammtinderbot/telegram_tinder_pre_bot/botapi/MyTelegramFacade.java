@@ -3,7 +3,6 @@ package ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -68,7 +67,7 @@ public class MyTelegramFacade {
         }
         userDataCache.setUsersCurrentBotState(id, botState);
 
-        return  botStateContext.processInputMessage(botState, update);
+        return botStateContext.processInputMessage(botState, update);
     }
 
 

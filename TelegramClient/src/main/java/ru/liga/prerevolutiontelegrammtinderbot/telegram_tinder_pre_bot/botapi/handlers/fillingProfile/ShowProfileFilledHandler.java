@@ -9,7 +9,6 @@ import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.BotState;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.InputMessageHandler;
-import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.TelegramTPB;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.cache.DataCache;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.entity.SexType;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.entity.User;
@@ -31,8 +30,6 @@ public class ShowProfileFilledHandler implements InputMessageHandler {
     private final DataCache dataCache;
     @Autowired
     private Communication communication;
-
-    private TelegramTPB telegramTPB;
 
 
     public ShowProfileFilledHandler(DataCache dataCache) {

@@ -13,7 +13,7 @@ public class WeLikeKeayboard {
     public static final String PREVIOUS = "Предыдущий◀️";
     public static final String BACK = "Назад";
 
-    public static ReplyKeyboard getWeLikeKeayboard(){
+    public static ReplyKeyboard getWeLikeKeayboard() {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
 
         replyKeyboardMarkup.setSelective(true);

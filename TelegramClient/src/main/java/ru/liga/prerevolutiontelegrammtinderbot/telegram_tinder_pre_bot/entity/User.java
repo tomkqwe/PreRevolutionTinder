@@ -1,13 +1,9 @@
 package ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 
 @Setter
@@ -18,11 +14,11 @@ import java.util.Set;
 public class User {
     private Long id;
     private String name;
-    //потом заменим на энамы, яхз как их в пост запросе передать
     private SexType sex;
     private Integer age;
     private String description;
     private SexType partnerSex;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

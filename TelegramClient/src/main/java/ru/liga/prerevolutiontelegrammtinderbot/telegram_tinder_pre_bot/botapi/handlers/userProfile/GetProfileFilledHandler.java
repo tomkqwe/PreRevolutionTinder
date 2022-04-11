@@ -45,25 +45,24 @@ public class GetProfileFilledHandler implements InputMessageHandler {
         sendPhoto.setReplyMarkup(FormKeyboard.getFormKeyboard());
 
         User user = communication.getUser(userID);
-        if (user==null) {
+        if (user == null) {
             dataCache.setUsersCurrentBotState(userID, BotState.ASK_GENDER);
             sendMessage.setText(NEED_REGISTRATION);
             return sendMessage;
         }
-        if (text.equals(FormKeyboard.CHANGE_FORM)){
-            dataCache.setUsersCurrentBotState(userID,BotState.ASK_GENDER);
+        if (text.equals(FormKeyboard.CHANGE_FORM)) {
+            dataCache.setUsersCurrentBotState(userID, BotState.ASK_GENDER);
             sendMessage.setText(CHANGE_FORM);
             sendMessage.setReplyMarkup(InlineKeyBoardSelector.getInlineKeyboardMarkup(BotState.START_STATE));
             return sendMessage;
-        }else if (text.equals(FormKeyboard.BACK)){
+        } else if (text.equals(FormKeyboard.BACK)) {
             sendMessage.setText(BACK_TO_MAIN_MENU);
             sendMessage.setReplyMarkup(MainMenuKeyboard.getMainMenuKeyboard());
             return sendMessage;
         }
-//        sendMessage.setText(user.toString());
         File textImageMaker = communication.getTextImageMaker(user.getId());
         sendPhoto.setPhoto(new InputFile(textImageMaker));
-        sendPhoto.setCaption(user.getSex().getName()+" "+user.getName());
+        sendPhoto.setCaption(user.getSex().getName() + " " + user.getName());
         return sendPhoto;
     }
 

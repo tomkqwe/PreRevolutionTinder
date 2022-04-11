@@ -17,11 +17,6 @@ public class MyConfig {
         return new RestTemplate();
     }
 
-
-    //    @Bean
-//    public TelegramTPB myTelegramTPB(TelegramFacade telegramFacade){
-//        return new TelegramTPB(telegramFacade);
-//    }
     @Bean
     public TelegramTPB myTelegramTPB(MyTelegramFacade telegramFacade) {
         return new TelegramTPB(telegramFacade);

@@ -20,9 +20,9 @@ public class AskDescription implements InputMessageHandler {
     public static final String SEND_DESCRIPTION = "Опишите себя";
     @Autowired
     private DataCache dataCache;
+
     @Override
     public PartialBotApiMethod<?> handleUpdate(Update update) {
-        Message message = update.getMessage();
         String chatID = UpdateHandler.getChatId(update);
         long userID = UpdateHandler.getId(update);
 
@@ -30,16 +30,17 @@ public class AskDescription implements InputMessageHandler {
         //Получаем строку в которой должно быть число, если пользователь вводит буквы,
         //ловим ошибку,и просим его ввести цифры, когда он ввел цифры сэтим их юзеру в возраст
         //и спрашиваем про описание и переходим к ASK_PARTNER_GENDER, где и будем сэтить DESCRIPTION
-        try{
+        try {
             userProfileData.setAge(Integer.parseInt(update.getMessage().getText()));
-        }catch (NumberFormatException e){
-            dataCache.setUsersCurrentBotState(userID,BotState.ASK_DESCRIPTION);
+        } catch (NumberFormatException e) {
+            dataCache.setUsersCurrentBotState(userID, BotState.ASK_DESCRIPTION);
             return new SendMessage(chatID, SEND_CORRECT_AGE);
         }
-        dataCache.setUsersCurrentBotState(userID,BotState.ASK_PARTNER_GENDER);
-        dataCache.saveUserProfileData(userID,dataCache.getUserProfileData(userID));
+        dataCache.setUsersCurrentBotState(userID, BotState.ASK_PARTNER_GENDER);
+        dataCache.saveUserProfileData(userID, dataCache.getUserProfileData(userID));
         return new SendMessage(chatID, SEND_DESCRIPTION);
     }
+
     @Override
     public BotState getHandlerName() {
         return BotState.ASK_DESCRIPTION;

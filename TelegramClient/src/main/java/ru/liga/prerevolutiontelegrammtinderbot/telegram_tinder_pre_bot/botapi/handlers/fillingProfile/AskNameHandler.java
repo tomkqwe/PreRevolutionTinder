@@ -39,7 +39,7 @@ public class AskNameHandler implements InputMessageHandler {
             String data = update.getCallbackQuery().getData();
             userProfileData.setSex(SexType.getSexType(data));
             dataCache.setUsersCurrentBotState(userID, BotState.ASK_AGE);
-            dataCache.saveUserProfileData(userID,dataCache.getUserProfileData(userID));
+            dataCache.saveUserProfileData(userID, dataCache.getUserProfileData(userID));
         } else {
             sendMessage = new SendMessage(chatId, CHOOSE_GENDER);
             sendMessage.setReplyMarkup(InlineKeyBoardSelector.getInlineKeyboardMarkup(BotState.ASK_GENDER));

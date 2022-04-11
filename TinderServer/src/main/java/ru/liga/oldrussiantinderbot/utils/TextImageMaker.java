@@ -1,6 +1,5 @@
 package ru.liga.oldrussiantinderbot.utils;
 
-import org.springframework.stereotype.Component;
 import ru.liga.oldrussiantinderbot.model.User;
 
 import javax.imageio.ImageIO;
@@ -9,9 +8,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,9 +20,9 @@ public class TextImageMaker {
     private static final double INDENT_SHARE = 0.1;
     private static final String IMAGE_FILE_EXTENSION = "png";
     private static final String FINAL_IMAGE_FILE_PATH = "ready.png";
+    private static final String IMAGE_FILE_PATH = "/prerev-background.jpg";
     private static Font bodyFont;
     private static Font headerFont;
-    private static final String IMAGE_FILE_PATH = "/prerev-background.jpg";
 
     public static File getImageFile(User user) {
         final BufferedImage image;
@@ -103,5 +99,6 @@ public class TextImageMaker {
             }
         }
     }
+
 
 }

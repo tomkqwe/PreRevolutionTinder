@@ -33,8 +33,8 @@ public class AskPartnerGender implements InputMessageHandler {
         userProfileData.setDescription(text);
         SendMessage sendMessage = new SendMessage(chatID, WHO_ARE_YOU_LOOKING_FOR);
         sendMessage.setReplyMarkup(InlineKeyBoardSelector.getInlineKeyboardMarkup(getHandlerName()));
-        dataCache.setUsersCurrentBotState(userID,BotState.PROFILE_FILLED);
-        dataCache.saveUserProfileData(userID,dataCache.getUserProfileData(userID));
+        dataCache.setUsersCurrentBotState(userID, BotState.PROFILE_FILLED);
+        dataCache.saveUserProfileData(userID, dataCache.getUserProfileData(userID));
         return sendMessage;
     }
 

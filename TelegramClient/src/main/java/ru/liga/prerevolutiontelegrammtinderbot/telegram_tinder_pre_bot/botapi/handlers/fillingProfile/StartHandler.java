@@ -42,7 +42,7 @@ public class StartHandler implements InputMessageHandler {
         SendMessage sendMessage;
         if (user == null) {
             dataCache.getUserProfileData(userID).setId(userID);
-            sendMessage = new SendMessage(chatID,NEED_REGISTRATION);
+            sendMessage = new SendMessage(chatID, NEED_REGISTRATION);
             sendMessage.setReplyMarkup(InlineKeyBoardSelector.getInlineKeyboardMarkup(getHandlerName()));
         } else {
             sendMessage = new SendMessage(chatID, USE_MAIN_MENU);

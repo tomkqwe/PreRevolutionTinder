@@ -12,7 +12,7 @@ public class FormKeyboard {
     public static final String CHANGE_FORM = "Изменить анкету";
     public static final String BACK = "Назад";
 
-    public static ReplyKeyboard getFormKeyboard(){
+    public static ReplyKeyboard getFormKeyboard() {
         ReplyKeyboardMarkup replyKeyboard = new ReplyKeyboardMarkup();
 
         replyKeyboard.setSelective(true);

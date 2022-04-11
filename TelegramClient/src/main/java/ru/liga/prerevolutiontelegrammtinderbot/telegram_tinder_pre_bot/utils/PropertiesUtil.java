@@ -7,21 +7,22 @@ import java.util.Properties;
 public final class PropertiesUtil {
     private static final Properties PROPERTIES = new Properties();
 
-    private PropertiesUtil() {
-    }
-
     static {
         loadProperties();
+    }
+
+    private PropertiesUtil() {
     }
 
     private static void loadProperties() {
         try (InputStream resourceAsStream = PropertiesUtil.class.getClassLoader().getResourceAsStream("application.properties")) {
             PROPERTIES.load(resourceAsStream);
         } catch (IOException e) {
-            throw new RuntimeException("Не удалось прочитать Property",e);
+            throw new RuntimeException("Не удалось прочитать Property", e);
         }
     }
-    public static String get(String key){
+
+    public static String get(String key) {
         return PROPERTIES.getProperty(key);
     }
 

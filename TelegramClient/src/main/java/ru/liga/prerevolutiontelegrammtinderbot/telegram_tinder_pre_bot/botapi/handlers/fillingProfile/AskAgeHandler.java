@@ -18,19 +18,20 @@ public class AskAgeHandler implements InputMessageHandler {
     public static final String HOW_OLD = "Сколько вам лет?";
     @Autowired
     private DataCache dataCache;
+
     @Override
     public PartialBotApiMethod<?> handleUpdate(Update update) {
 
         long userID = UpdateHandler.getId(update);
-        String text= UpdateHandler.getText(update);
+        String text = UpdateHandler.getText(update);
         String chatID = UpdateHandler.getChatId(update);
 
         User userProfileData = dataCache.getUserProfileData(userID);
-       //Получаем имя, сэтим его юзеру,спрашиваем про возраст,сэтить возраст будем в ASK_DESCRIPTION
+        //Получаем имя, сэтим его юзеру,спрашиваем про возраст,сэтить возраст будем в ASK_DESCRIPTION
         userProfileData.setName(text);
-        dataCache.saveUserProfileData(userID,dataCache.getUserProfileData(userID));
+        dataCache.saveUserProfileData(userID, dataCache.getUserProfileData(userID));
         SendMessage sendMessage = new SendMessage(chatID, HOW_OLD);
-        dataCache.setUsersCurrentBotState(userID,BotState.ASK_DESCRIPTION);
+        dataCache.setUsersCurrentBotState(userID, BotState.ASK_DESCRIPTION);
         return sendMessage;
     }
 

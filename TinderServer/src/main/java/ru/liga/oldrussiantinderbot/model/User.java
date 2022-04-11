@@ -21,14 +21,11 @@ public class User {
     @Id
     private Long id;
     private String name;
-    //потом заменим на энамы, яхз как их в пост запросе передать
     private SexType sex;
     private Integer age;
     private String description;
-
     private SexType partnerSex;
 
-    //сэты из видео, таблички он там делает в ручную
     @ManyToMany
     @JoinTable(
             name = "user_likes",

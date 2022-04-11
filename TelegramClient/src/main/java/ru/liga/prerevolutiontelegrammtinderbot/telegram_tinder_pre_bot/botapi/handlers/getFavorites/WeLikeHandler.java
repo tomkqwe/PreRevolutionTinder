@@ -56,11 +56,9 @@ public class WeLikeHandler implements InputMessageHandler {
                     index = 0;
                 }
                 User user = weLike.get(index);
-//                String resultToOutput = user.toString();
-//                sendMessage.setText(resultToOutput);
                 File textImageMaker = communication.getTextImageMaker(user.getId());
                 sendPhoto.setPhoto(new InputFile(textImageMaker));
-                sendPhoto.setCaption(user.getSex().getName()+" "+user.getName());
+                sendPhoto.setCaption(user.getSex().getName() + " " + user.getName());
                 return sendPhoto;
             }
             case WeLikeKeayboard.PREVIOUS: {
@@ -69,11 +67,9 @@ public class WeLikeHandler implements InputMessageHandler {
                     index = weLike.size() - 1;
                 }
                 User user = weLike.get(index);
-//                String resultToOutput = user.toString();
-//                sendMessage.setText(resultToOutput);
                 File textImageMaker = communication.getTextImageMaker(user.getId());
                 sendPhoto.setPhoto(new InputFile(textImageMaker));
-                sendPhoto.setCaption(user.getSex().getName()+" "+user.getName());
+                sendPhoto.setCaption(user.getSex().getName() + " " + user.getName());
                 return sendPhoto;
             }
             case WeLikeKeayboard.BACK: {
