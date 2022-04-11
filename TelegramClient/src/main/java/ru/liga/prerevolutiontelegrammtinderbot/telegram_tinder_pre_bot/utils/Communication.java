@@ -102,6 +102,4 @@ public class Communication {
     public void deleteUser(long id) {
         restTemplate.delete(URL + "/" + id);
     }
-
-
 }
