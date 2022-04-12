@@ -6,7 +6,6 @@ import ru.liga.oldrussiantinderbot.model.User;
 import ru.liga.oldrussiantinderbot.model.dto.UserDTO;
 import ru.liga.oldrussiantinderbot.model.dto.UserMapper;
 import ru.liga.oldrussiantinderbot.service.UserService;
-import ru.liga.oldrussiantinderbot.utils.Translator;
 
 import java.util.List;
 
@@ -30,19 +29,19 @@ public class UserRESTController {
     @GetMapping("/users/{id}")
     public UserDTO getUser(@PathVariable Long id) {
         User user = userService.getUser(id);
-        return UserMapper.INSTANCE.fromUserTOUserDTO(user);
+        return UserMapper.INSTANCE.fromUserToUserDTO(user);
     }
 
     @PostMapping("/users")
     public UserDTO addNewUser(@RequestBody User user) {
         userService.saveUser(user);
-        return UserMapper.INSTANCE.fromUserTOUserDTO(user);
+        return UserMapper.INSTANCE.fromUserToUserDTO(user);
     }
 
     @PutMapping("/users")
     public UserDTO updateUser(@RequestBody User user) {
         userService.updateUser(user);
-        return UserMapper.INSTANCE.fromUserTOUserDTO(user);
+        return UserMapper.INSTANCE.fromUserToUserDTO(user);
     }
 
     @DeleteMapping("/users/{id}")

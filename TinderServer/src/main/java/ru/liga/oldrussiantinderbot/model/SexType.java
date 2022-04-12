@@ -1,8 +1,5 @@
 package ru.liga.oldrussiantinderbot.model;
 
-import lombok.Getter;
-
-@Getter
 public enum SexType {
     MALE("Сударь"), FEMALE("Сударыня"), ALL("Все");
 
@@ -10,5 +7,9 @@ public enum SexType {
 
     SexType(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

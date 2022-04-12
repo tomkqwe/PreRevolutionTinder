@@ -8,7 +8,7 @@ import ru.liga.oldrussiantinderbot.model.User;
 public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    UserDTO fromUserTOUserDTO(User user);
+    UserDTO fromUserToUserDTO(User user);
 
     User fromUserDTOToUser(UserDTO userDTO);
 }
