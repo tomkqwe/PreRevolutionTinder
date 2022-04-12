@@ -49,7 +49,7 @@ public class TelegramTPB extends TelegramWebhookBot {
                 execute((SendPhoto) botApiMethod);
                 return null;
             } catch (TelegramApiException e) {
-                log.info(e.getMessage());
+//                log.info(e.getMessage());
             }
         }
         return (BotApiMethod<?>) botApiMethod;

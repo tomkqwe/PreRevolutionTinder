@@ -1,6 +1,7 @@
 package ru.liga.oldrussiantinderbot.service;
 
 
+import org.mapstruct.control.MappingControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,12 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(Long id) {
-        User user = null;
-        Optional<User> byId = userRepository.findById(id);
-        if (byId.isPresent()) {
-            user = byId.get();
-        }
-        return user;
+        return userRepository.findById(id).orElse(new User());
     }
 
     @Override
@@ -54,10 +50,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(User user) {
-        user.setName(translator.translateInOldLanguage(user.getName()));
-        user.setDescription(translator.translateInOldLanguage(user.getDescription()));
-        saveUser(user);
-        return user;
+        return translateUser(user);
     }
 
     @Override

@@ -27,21 +27,21 @@ public class UserRESTController {
     }
 
     @GetMapping("/users/{id}")
-    public UserDTO getUser(@PathVariable Long id) {
+    public User getUser(@PathVariable Long id) {
         User user = userService.getUser(id);
-        return UserMapper.INSTANCE.fromUserToUserDTO(user);
+        return user;
     }
 
     @PostMapping("/users")
-    public UserDTO addNewUser(@RequestBody User user) {
+    public User addNewUser(@RequestBody User user) {
         userService.saveUser(user);
-        return UserMapper.INSTANCE.fromUserToUserDTO(user);
+        return user;
     }
 
     @PutMapping("/users")
-    public UserDTO updateUser(@RequestBody User user) {
+    public User updateUser(@RequestBody User user) {
         userService.updateUser(user);
-        return UserMapper.INSTANCE.fromUserToUserDTO(user);
+        return user;
     }
 
     @DeleteMapping("/users/{id}")

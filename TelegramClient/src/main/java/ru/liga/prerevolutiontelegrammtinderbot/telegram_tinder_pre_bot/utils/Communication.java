@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Getter
-@Slf4j
+
 @Component
 public class Communication {
     private final RestTemplate restTemplate;
@@ -42,31 +42,27 @@ public class Communication {
     }
 
     public List<User> getAllUsers() {
-        log.info("get list of all users");
+//        log.info("get list of all users");
         return restTemplate.exchange(URL, HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {
         }).getBody();
     }
 
     public User getUser(long id) {
-        log.info("get user by " + id);
         return restTemplate.getForObject(URL + "/" + id, User.class);
     }
 
     public void saveUser(User user) {
         restTemplate.postForEntity(URL, user, String.class);
-        log.info("New user was added to DB");
     }
 
     public void updateUser(User user) {
         long id = user.getId();
         restTemplate.put(URL, user);
-        log.info("user with ID " + id + " was updated");
     }
 
     public List<User> getUsersToSearch(Long userID) {
         try {
             ResponseEntity<User[]> forEntity = restTemplate.getForEntity(URL + "filtredListToSearch/" + userID, User[].class);
-            log.info("getUsersToSearch");
             return Arrays.asList(forEntity.getBody());
         } catch (Exception e) {
             return null;
@@ -76,24 +72,20 @@ public class Communication {
     public void likeRequest(long current, long target) {
         List<Long> longs = Arrays.asList(current, target);
         restTemplate.postForObject(URL + LIKE + current + DELIMITER + target, longs, ResponseEntity.class);
-        log.info("Send current {} id likes target id {}", current, target);
     }
 
     public List<User> getWeLike(Long userID) {
         ResponseEntity<User[]> responseEntity = restTemplate.getForEntity(URL + WE_LIKE + userID, User[].class);
-        log.info("getWeLike");
         return Arrays.asList(responseEntity.getBody());
     }
 
     public List<User> getWhoLikedMe(Long userID) {
         ResponseEntity<User[]> forEntity = restTemplate.getForEntity(URL + WHO_LIKED_ME + userID, User[].class);
-        log.info("getWhoLikedMe");
         return Arrays.asList(forEntity.getBody());
     }
 
     public List<User> getSympathy(Long userID) {
         ResponseEntity<User[]> forEntity = restTemplate.getForEntity(URL + SYMPATHY + userID, User[].class);
-        log.info("getSympathy");
         return Arrays.asList(forEntity.getBody());
     }
 

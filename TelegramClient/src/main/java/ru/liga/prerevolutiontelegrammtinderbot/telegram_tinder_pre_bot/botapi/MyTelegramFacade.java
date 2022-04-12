@@ -33,13 +33,13 @@ public class MyTelegramFacade {
     public PartialBotApiMethod<?> handleUpdate(Update update) {
         Message message = update.getMessage();
         if (message != null && message.hasText()) {
-            log.info("New message from User:{}, userId: {}, chatId: {},  with text: {}",
-                    message.getFrom().getUserName(), message.getFrom().getId(), message.getChatId(), message.getText());
+//            log.info("New message from User:{}, userId: {}, chatId: {},  with text: {}",
+//                    message.getFrom().getUserName(), message.getFrom().getId(), message.getChatId(), message.getText());
         }
         if (update.hasCallbackQuery()) {
             CallbackQuery callbackQuery = update.getCallbackQuery();
-            log.info("New callbackQuery from User: {}, userId: {}, with data: {}", update.getCallbackQuery().getFrom().getUserName(),
-                    callbackQuery.getFrom().getId(), update.getCallbackQuery().getData());
+//            log.info("New callbackQuery from User: {}, userId: {}, with data: {}", update.getCallbackQuery().getFrom().getUserName(),
+//                    callbackQuery.getFrom().getId(), update.getCallbackQuery().getData());
         }
         return handleInputMessage(update);
     }
