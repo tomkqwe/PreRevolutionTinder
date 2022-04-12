@@ -19,8 +19,12 @@ import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.Upd
 public class AskNameHandler implements InputMessageHandler {
     public static final String WHAT_IS_YOUR_NAME = "Как вас величать?";
     public static final String CHOOSE_GENDER = "Выберите пол!";
+    private final DataCache dataCache;
+
     @Autowired
-    private DataCache dataCache;
+    public AskNameHandler(DataCache dataCache) {
+        this.dataCache = dataCache;
+    }
 
     @Override
     public PartialBotApiMethod<?> handleUpdate(Update update) {

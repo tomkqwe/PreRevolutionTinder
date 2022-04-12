@@ -15,9 +15,13 @@ import java.io.File;
 @RequiredArgsConstructor
 @RequestMapping("api/users/image")
 public class ImageController {
-    @Autowired
+
     private UserService userService;
 
+    @Autowired
+    public ImageController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/")
     public File getTextImageMaker(@RequestBody Long userID) {

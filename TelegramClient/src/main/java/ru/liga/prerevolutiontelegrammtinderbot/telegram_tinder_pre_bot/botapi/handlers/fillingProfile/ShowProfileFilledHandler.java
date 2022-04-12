@@ -28,12 +28,12 @@ public class ShowProfileFilledHandler implements InputMessageHandler {
     public static final String ANKET_COMPLITE = "Анкета заполнена!";
     public static final String GO_PRESS_BUTTON = "Кого ищем?\nНажмите на кнопку!";
     private final DataCache dataCache;
+    private final Communication communication;
+
     @Autowired
-    private Communication communication;
-
-
-    public ShowProfileFilledHandler(DataCache dataCache) {
+    public ShowProfileFilledHandler(DataCache dataCache, Communication communication) {
         this.dataCache = dataCache;
+        this.communication = communication;
     }
 
     @Override

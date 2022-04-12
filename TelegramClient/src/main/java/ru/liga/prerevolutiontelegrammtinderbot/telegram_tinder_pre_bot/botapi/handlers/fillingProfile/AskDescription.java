@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.BotState;
 import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.InputMessageHandler;
@@ -18,8 +17,12 @@ import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.Upd
 public class AskDescription implements InputMessageHandler {
     public static final String SEND_CORRECT_AGE = "Возраст не может быть с буквами!\nПовторите ввод!";
     public static final String SEND_DESCRIPTION = "Опишите себя";
+    private final DataCache dataCache;
+
     @Autowired
-    private DataCache dataCache;
+    public AskDescription(DataCache dataCache) {
+        this.dataCache = dataCache;
+    }
 
     @Override
     public PartialBotApiMethod<?> handleUpdate(Update update) {

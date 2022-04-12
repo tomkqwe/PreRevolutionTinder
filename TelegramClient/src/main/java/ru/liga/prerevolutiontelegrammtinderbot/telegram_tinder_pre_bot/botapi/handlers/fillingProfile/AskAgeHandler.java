@@ -16,8 +16,12 @@ import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.Upd
 @Component
 public class AskAgeHandler implements InputMessageHandler {
     public static final String HOW_OLD = "Сколько вам лет?";
+    private final DataCache dataCache;
+
     @Autowired
-    private DataCache dataCache;
+    public AskAgeHandler(DataCache dataCache) {
+        this.dataCache = dataCache;
+    }
 
     @Override
     public PartialBotApiMethod<?> handleUpdate(Update update) {

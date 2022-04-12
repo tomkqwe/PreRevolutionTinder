@@ -25,9 +25,13 @@ public class GetSearchingHandler implements InputMessageHandler {
     public static final String BACK = "Назад";
     public static final String USE_MAIN_MENU = "Воспользуйтесь главным меню";
     public static final String NOBODY_HERE = "Тут никого нет\uD83D\uDE2D";
-    @Autowired
-    private Communication communication;
+    private final Communication communication;
     private int index = 0;
+
+    @Autowired
+    public GetSearchingHandler(Communication communication) {
+        this.communication = communication;
+    }
 
 
     @Override

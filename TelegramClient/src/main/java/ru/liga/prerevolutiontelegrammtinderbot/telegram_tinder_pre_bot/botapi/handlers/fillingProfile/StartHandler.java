@@ -20,10 +20,14 @@ import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.Upd
 public class StartHandler implements InputMessageHandler {
     public static final String NEED_REGISTRATION = "Необходимо зарегистрироваться";
     public static final String USE_MAIN_MENU = "Воспользуйтесь главным меню";
+    private final DataCache dataCache;
+    private final Communication communication;
+
     @Autowired
-    private DataCache dataCache;
-    @Autowired
-    private Communication communication;
+    public StartHandler(DataCache dataCache, Communication communication) {
+        this.dataCache = dataCache;
+        this.communication = communication;
+    }
 
 
     @Override

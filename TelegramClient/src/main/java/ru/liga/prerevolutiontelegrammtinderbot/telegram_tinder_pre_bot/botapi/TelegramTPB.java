@@ -20,9 +20,11 @@ public class TelegramTPB extends TelegramWebhookBot {
     private final String webHookPath = "bot.webHookPath";
     private final String botUserName = "bot.name";
     private final String botToken = "bot.token";
-    @Autowired
-    private MyTelegramFacade telegramFacade;
 
+    private final MyTelegramFacade telegramFacade;
+
+
+    @Autowired
     public TelegramTPB(MyTelegramFacade telegramFacade) {
         this.telegramFacade = telegramFacade;
     }

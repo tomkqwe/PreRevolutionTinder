@@ -16,8 +16,12 @@ import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.Upd
 @Component
 public class AskGenderHandler implements InputMessageHandler {
     public static final String CHOOSE_YOUR_GENDER = "Вы сударь иль сударыня?";
+    private final DataCache dataCache;
+
     @Autowired
-    private DataCache dataCache;
+    public AskGenderHandler(DataCache dataCache) {
+        this.dataCache = dataCache;
+    }
 
 
     @Override

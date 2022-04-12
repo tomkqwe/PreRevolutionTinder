@@ -22,12 +22,16 @@ import java.util.List;
 @Component
 public class WeLikeHandler implements InputMessageHandler {
     public static final String FAVORITES = "Возвращаемся в меню Любимцы";
-    @Autowired
-    private DataCache dataCache;
-    @Autowired
-    private Communication communication;
+    private final DataCache dataCache;
+    private final Communication communication;
 
     private int index = 0;
+
+    @Autowired
+    public WeLikeHandler(DataCache dataCache, Communication communication) {
+        this.dataCache = dataCache;
+        this.communication = communication;
+    }
 
     @Override
     public PartialBotApiMethod<?> handleUpdate(Update update) {
@@ -52,7 +56,7 @@ public class WeLikeHandler implements InputMessageHandler {
         switch (text) {
             case WeLikeKeayboard.NEXT: {
                 index++;
-                if (index == weLike.size()) {
+                if (index >= weLike.size()) {
                     index = 0;
                 }
                 User user = weLike.get(index);
@@ -63,7 +67,7 @@ public class WeLikeHandler implements InputMessageHandler {
             }
             case WeLikeKeayboard.PREVIOUS: {
                 index--;
-                if (index == -1) {
+                if (index <= -1) {
                     index = weLike.size() - 1;
                 }
                 User user = weLike.get(index);

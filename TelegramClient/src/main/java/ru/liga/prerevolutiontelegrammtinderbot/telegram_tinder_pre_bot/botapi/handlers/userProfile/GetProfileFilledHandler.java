@@ -26,10 +26,14 @@ public class GetProfileFilledHandler implements InputMessageHandler {
     public static final String NEED_REGISTRATION = "Вам нужно зарегистрироваться";
     public static final String CHANGE_FORM = "Изменяем анкету";
     public static final String BACK_TO_MAIN_MENU = "Возращаемся в главное меню";
+    private final DataCache dataCache;
+    private final Communication communication;
+
     @Autowired
-    private DataCache dataCache;
-    @Autowired
-    private Communication communication;
+    public GetProfileFilledHandler(DataCache dataCache, Communication communication) {
+        this.dataCache = dataCache;
+        this.communication = communication;
+    }
 
     @Override
     public PartialBotApiMethod<?> handleUpdate(Update update) {

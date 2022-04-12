@@ -17,8 +17,12 @@ import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.utils.Upd
 @Component
 public class AskPartnerGender implements InputMessageHandler {
     public static final String WHO_ARE_YOU_LOOKING_FOR = "Кого вы ищите?";
+    private final DataCache dataCache;
+
     @Autowired
-    private DataCache dataCache;
+    public AskPartnerGender(DataCache dataCache) {
+        this.dataCache = dataCache;
+    }
 
     @Override
     public PartialBotApiMethod<?> handleUpdate(Update update) {

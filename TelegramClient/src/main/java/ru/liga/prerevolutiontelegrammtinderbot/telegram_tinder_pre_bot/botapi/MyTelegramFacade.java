@@ -2,6 +2,7 @@ package ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
@@ -23,6 +24,7 @@ public class MyTelegramFacade {
     private BotStateContext botStateContext;
     private DataCache userDataCache;
 
+    @Autowired
     public MyTelegramFacade(BotStateContext botStateContext, DataCache userDataCache) {
         this.botStateContext = botStateContext;
         this.userDataCache = userDataCache;

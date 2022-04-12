@@ -29,10 +29,14 @@ public class GetFavoritesHandler implements InputMessageHandler {
     public static final String WHO_LIKED_ME = "Выбрали вас";
     public static final String SYMPATHY = "Взаимный выбор";
     private final int index = 0;
+    private final DataCache dataCache;
+    private final Communication communication;
+
     @Autowired
-    private DataCache dataCache;
-    @Autowired
-    private Communication communication;
+    public GetFavoritesHandler(DataCache dataCache, Communication communication) {
+        this.dataCache = dataCache;
+        this.communication = communication;
+    }
 
     public int getIndex() {
         return index;

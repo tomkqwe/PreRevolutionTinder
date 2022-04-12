@@ -21,11 +21,15 @@ import java.util.List;
 
 @Component
 public class GetSympathyHandler implements InputMessageHandler {
-    @Autowired
-    private DataCache dataCache;
-    @Autowired
-    private Communication communication;
+    private final DataCache dataCache;
+    private final Communication communication;
     private int index = 0;
+
+    @Autowired
+    public GetSympathyHandler(DataCache dataCache, Communication communication) {
+        this.dataCache = dataCache;
+        this.communication = communication;
+    }
 
     @Override
     public PartialBotApiMethod<?> handleUpdate(Update update) {

@@ -65,11 +65,6 @@ public class TextImageMaker {
             sb = new StringBuilder();
             fontMetrics = graphics.getFontMetrics(bodyFont);
         }
-//        if ((lines.size() + 1) * fontMetrics.getHeight() > maxHeight) {
-//            bodyFont.deriveFont(bodyFont.getStyle(), (int) (bodyFont.getSize() / 2));
-//            return getStringLines(text, maxHeight, graphics, maxLineWidth);
-//        } else {
-//        }
         return lines;
     }
 

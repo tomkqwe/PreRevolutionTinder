@@ -3,6 +3,7 @@ package ru.liga.oldrussiantinderbot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import ru.liga.oldrussiantinderbot.model.SexType;
 import ru.liga.oldrussiantinderbot.model.User;
 import ru.liga.oldrussiantinderbot.repository.UserRepository;
@@ -13,11 +14,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private Translator translator;
 
+    private final UserRepository userRepository;
+
+    private final Translator translator;
+
+
+    @Autowired
     public UserServiceImpl(UserRepository userRepository, Translator translator) {
         this.userRepository = userRepository;
         this.translator = translator;
@@ -41,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) {
-        userRepository.save(user);
+        userRepository.save(translateUser(user));
     }
 
     @Override
@@ -125,4 +128,13 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
 
     }
+
+    @Override
+    public User translateUser(User user) {
+            user.setDescription(translator.translateInOldLanguage(user.getDescription()));
+            user.setName(translator.translateInOldLanguage(user.getName()));
+        return user;
+    }
+
+
 }

@@ -12,8 +12,13 @@ import ru.liga.prerevolutiontelegrammtinderbot.telegram_tinder_pre_bot.botapi.Te
 
 @RestController
 public class WebHookController {
+
+    private final TelegramTPB telegramTPB;
+
     @Autowired
-    private TelegramTPB telegramTPB;
+    public WebHookController(TelegramTPB telegramTPB) {
+        this.telegramTPB = telegramTPB;
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public PartialBotApiMethod<?> onUpdateReceived(@RequestBody Update update) {

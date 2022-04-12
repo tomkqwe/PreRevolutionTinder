@@ -20,6 +20,7 @@ import java.util.List;
 @Slf4j
 @Component
 public class Communication {
+    private final RestTemplate restTemplate;
     @Value("${api.like}")
     public String LIKE;
     @Value("${api.welike}")
@@ -34,8 +35,11 @@ public class Communication {
     public String IMAGE;
     @Value("${api.startUrl}")
     private String URL;
+
     @Autowired
-    private RestTemplate restTemplate;
+    public Communication(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public List<User> getAllUsers() {
         log.info("get list of all users");

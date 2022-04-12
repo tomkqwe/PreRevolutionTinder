@@ -25,5 +25,7 @@ public interface UserService {
 
     List<User> getAllUsersToSearchList(Long id);
 
+    User translateUser(User user);
+
 
 }

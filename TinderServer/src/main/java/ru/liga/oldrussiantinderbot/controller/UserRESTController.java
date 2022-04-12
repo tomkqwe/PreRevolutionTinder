@@ -3,6 +3,8 @@ package ru.liga.oldrussiantinderbot.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.liga.oldrussiantinderbot.model.User;
+import ru.liga.oldrussiantinderbot.model.dto.UserDTO;
+import ru.liga.oldrussiantinderbot.model.dto.UserMapper;
 import ru.liga.oldrussiantinderbot.service.UserService;
 import ru.liga.oldrussiantinderbot.utils.Translator;
 
@@ -11,11 +13,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class UserRESTController {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private Translator translator;
 
+    private final UserService userService;
+
+
+    @Autowired
+    public UserRESTController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/users")
     public List<User> getAllUsers() {
@@ -23,24 +28,21 @@ public class UserRESTController {
     }
 
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable Long id) {
-        return userService.getUser(id);
+    public UserDTO getUser(@PathVariable Long id) {
+        User user = userService.getUser(id);
+        return UserMapper.INSTANCE.fromUserTOUserDTO(user);
     }
 
     @PostMapping("/users")
-    public User addNewUser(@RequestBody User user) {
-        user.setDescription(translator.translateInOldLanguage(user.getDescription()));
-        user.setName(translator.translateInOldLanguage(user.getName()));
+    public UserDTO addNewUser(@RequestBody User user) {
         userService.saveUser(user);
-        return user;
+        return UserMapper.INSTANCE.fromUserTOUserDTO(user);
     }
 
     @PutMapping("/users")
-    public User updateUser(@RequestBody User user) {
-        user.setDescription(translator.translateInOldLanguage(user.getDescription()));
-        user.setName(translator.translateInOldLanguage(user.getName()));
+    public UserDTO updateUser(@RequestBody User user) {
         userService.updateUser(user);
-        return user;
+        return UserMapper.INSTANCE.fromUserTOUserDTO(user);
     }
 
     @DeleteMapping("/users/{id}")
